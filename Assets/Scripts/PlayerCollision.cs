@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-
+/// <summary>
+/// Handles player collisions with enemies, including health management.
+/// </summary>
 public class PlayerCollision : MonoBehaviour
 {
     public int playerHealth = 3;
@@ -16,8 +16,16 @@ public class PlayerCollision : MonoBehaviour
 
             if (playerHealth <= 0)
             {
-                // Handle game over (e.g., reload scene)
+                HandleGameOver();
             }
         }
+    }
+
+    /// <summary>
+    /// Handles game over logic, such as reloading the scene or displaying a game over screen.
+    /// </summary>
+    void HandleGameOver()
+    {
+        // Implement game over logic here, such as reloading the scene
     }
 }

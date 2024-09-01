@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-
+/// <summary>
+/// Handles player movement based on input.
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
     public float speed = 10.0f;

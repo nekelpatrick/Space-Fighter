@@ -1,18 +1,20 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manages the spawning of enemies at random positions relative to the player.
+/// </summary>
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public float spawnRate = 2.0f;
-    public float spawnDistance = 10.0f;   // Distance from the player to spawn enemies
-    public float spawnRangeX = 5.0f;      // Range on the X-axis for random spawn positions
-    public float spawnRangeZ = 5.0f;      // Range on the Z-axis for random spawn positions
-    public float fixedYPosition = 5.0f;   // Fixed Y position for spawning enemies
-    public Transform playerTransform;     // Reference to the player's transform
+    public float spawnRangeX = 5.0f;
+    public float spawnRangeZ = 5.0f;
+    public float fixedYPosition = 5.0f;
+    public Transform playerTransform;
 
     private float nextSpawn = 0.0f;
+    private HashSet<Transform> activeEnemies = new HashSet<Transform>();
 
     void Update()
     {
@@ -21,24 +23,32 @@ public class EnemySpawner : MonoBehaviour
             nextSpawn = Time.time + spawnRate;
             SpawnEnemy();
         }
-
-        // Debugging to verify the player's position is updated
-        Debug.Log("Player's Current Position: " + playerTransform.position);
     }
 
     void SpawnEnemy()
     {
-        // Generate a random position within the spawn range relative to the player's current position
         float randomX = Random.Range(-spawnRangeX, spawnRangeX) + playerTransform.position.x;
         float randomZ = Random.Range(-spawnRangeZ, spawnRangeZ) + playerTransform.position.z;
 
-        // Use the fixed Y position for the enemy
         Vector3 spawnPosition = new Vector3(randomX, fixedYPosition, randomZ);
 
-        // Debugging to verify spawn position calculation
-        Debug.Log("Spawning enemy at position: " + spawnPosition);
+        GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        activeEnemies.Add(enemy.transform);
 
-        // Instantiate the enemy at the calculated position
-        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        // Notify AutoShoot of the new enemy
+        playerTransform.GetComponent<AutoShoot>().AddEnemy(enemy.transform);
+    }
+
+    /// <summary>
+    /// Removes an enemy from tracking when destroyed.
+    /// </summary>
+    /// <param name="enemy">The enemy to remove.</param>
+    public void RemoveEnemy(Transform enemy)
+    {
+        if (activeEnemies.Contains(enemy))
+        {
+            activeEnemies.Remove(enemy);
+            playerTransform.GetComponent<AutoShoot>().RemoveEnemy(enemy);
+        }
     }
 }

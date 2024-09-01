@@ -67,8 +67,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 8190577876381394406, guid: 040409a5e465fb047831003254a97315,
     type: 3}
-  LaserOutArea: {fileID: 1917160485853566369}
+  laserOutArea: {fileID: 1917160485853566369}
   fireRate: 0.5
+  detectionRange: 15
 --- !u!114 &365514437301714264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,7 +98,6 @@ MonoBehaviour:
   enemyPrefab: {fileID: 6853003299114923407, guid: 9f31d7ff2bd8be64d8d02180b79bf2b9,
     type: 3}
   spawnRate: 2
-  spawnDistance: 10
   spawnRangeX: 5
   spawnRangeZ: 5
   fixedYPosition: 5

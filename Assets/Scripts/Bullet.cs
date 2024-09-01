@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manages bullet behavior, including movement, lifetime, and collision detection.
+/// </summary>
 public class Bullet : MonoBehaviour
 {
     public float speed = 20.0f;
