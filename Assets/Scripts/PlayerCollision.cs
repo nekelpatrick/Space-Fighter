@@ -5,27 +5,19 @@ using UnityEngine;
 /// </summary>
 public class PlayerCollision : MonoBehaviour
 {
-    public int playerHealth = 3;
+    private PlayerHealth playerHealth;
+
+    void Start()
+    {
+        playerHealth = GetComponent<PlayerHealth>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
-            playerHealth--;
+            playerHealth.TakeDamage(1);
             Destroy(other.gameObject);
-
-            if (playerHealth <= 0)
-            {
-                HandleGameOver();
-            }
         }
-    }
-
-    /// <summary>
-    /// Handles game over logic, such as reloading the scene or displaying a game over screen.
-    /// </summary>
-    void HandleGameOver()
-    {
-        // Implement game over logic here, such as reloading the scene
     }
 }

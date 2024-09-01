@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Handles the automatic shooting mechanism for the player character.
-/// Continuously aims at the nearest enemy and shoots.
+/// Handles automatic shooting for the player, rotating the spaceship to aim at the nearest enemy.
 /// </summary>
 public class AutoShoot : MonoBehaviour
 {
@@ -11,6 +10,8 @@ public class AutoShoot : MonoBehaviour
     public Transform laserOutArea;
     public float fireRate = 0.5f;
     public float detectionRange = 15.0f; // Range within which enemies can be targeted
+    public float rotationSpeed = 5.0f;   // Speed at which the spaceship rotates towards the enemy
+    public float firingAngleThreshold = 5.0f; // Angle within which the spaceship can fire at the enemy
 
     private float nextFire = 0.0f;
     private Transform nearestEnemy;
@@ -23,28 +24,43 @@ public class AutoShoot : MonoBehaviour
         if (nearestEnemy != null)
         {
             AimAtEnemy(nearestEnemy);
-        }
-
-        if (Time.time > nextFire)
-        {
-            nextFire = Time.time + fireRate;
-            Shoot();
+            if (IsAimedAtEnemy(nearestEnemy) && Time.time > nextFire)
+            {
+                nextFire = Time.time + fireRate;
+                Shoot();
+            }
         }
     }
 
+    /// <summary>
+    /// Instantiates a bullet and shoots it towards the current target.
+    /// </summary>
     void Shoot()
     {
         Instantiate(bulletPrefab, laserOutArea.position, laserOutArea.rotation);
     }
 
     /// <summary>
-    /// Aims the shooting area towards the nearest enemy.
+    /// Aims the spaceship towards the nearest enemy.
     /// </summary>
     /// <param name="target">The nearest enemy to target.</param>
     void AimAtEnemy(Transform target)
     {
-        Vector3 direction = target.position - laserOutArea.position;
-        laserOutArea.rotation = Quaternion.LookRotation(direction);
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed); // Rotate the spaceship itself
+    }
+
+    /// <summary>
+    /// Checks if the spaceship is sufficiently aimed at the enemy to fire.
+    /// </summary>
+    /// <param name="target">The nearest enemy to target.</param>
+    /// <returns>True if the spaceship is aimed at the enemy, false otherwise.</returns>
+    bool IsAimedAtEnemy(Transform target)
+    {
+        Vector3 directionToEnemy = (target.position - transform.position).normalized;
+        float angleToEnemy = Vector3.Angle(transform.forward, directionToEnemy);
+        return angleToEnemy < firingAngleThreshold;
     }
 
     /// <summary>
@@ -54,16 +70,16 @@ public class AutoShoot : MonoBehaviour
     Transform FindNearestEnemy()
     {
         Transform closestEnemy = null;
-        float closestDistance = detectionRange;
+        float closestDistanceSqr = detectionRange * detectionRange; // Using squared distance for performance
 
         foreach (Transform enemy in enemies)
         {
             if (enemy == null) continue; // Skip destroyed enemies
 
-            float distance = Vector3.Distance(transform.position, enemy.position);
-            if (distance < closestDistance)
+            float distanceSqr = (enemy.position - transform.position).sqrMagnitude;
+            if (distanceSqr < closestDistanceSqr)
             {
-                closestDistance = distance;
+                closestDistanceSqr = distanceSqr;
                 closestEnemy = enemy;
             }
         }

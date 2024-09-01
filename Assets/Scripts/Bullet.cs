@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 20.0f;
     public float lifeTime = 2.0f;
+    public int damage = 1; // Amount of damage the bullet deals
 
     void Start()
     {
@@ -22,7 +23,11 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Destroy(other.gameObject);
+            Health enemyHealth = other.GetComponent<Health>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damage);
+            }
             Destroy(gameObject);
         }
     }
