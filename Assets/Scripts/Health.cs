@@ -1,16 +1,18 @@
 using UnityEngine;
 
 /// <summary>
-/// Manages the health of an entity, such as an enemy.
+/// Manages the health of an entity, such as an enemy, ensuring proper destruction upon death.
 /// </summary>
 public class Health : MonoBehaviour
 {
  public int maxHealth = 3;
  private int currentHealth;
+ private EnemySpawner enemySpawner;
 
  void Start()
  {
   currentHealth = maxHealth;
+  enemySpawner = FindObjectOfType<EnemySpawner>();
  }
 
  /// <summary>
@@ -27,10 +29,14 @@ public class Health : MonoBehaviour
  }
 
  /// <summary>
- /// Handles the entity's death.
+ /// Handles the entity's death, ensuring it is properly removed from all tracking systems.
  /// </summary>
  private void Die()
  {
+  if (enemySpawner != null)
+  {
+   enemySpawner.RemoveEnemy(transform);
+  }
   Destroy(gameObject);
  }
 }

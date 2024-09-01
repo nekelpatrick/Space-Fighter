@@ -70,6 +70,8 @@ MonoBehaviour:
   laserOutArea: {fileID: 1917160485853566369}
   fireRate: 0.5
   detectionRange: 15
+  rotationSpeed: 3
+  firingAngleThreshold: 3
 --- !u!114 &365514437301714264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,9 +102,7 @@ MonoBehaviour:
   initialSpawnRate: 1
   spawnRateDecrease: 0.1
   minSpawnRate: 0.5
-  spawnRangeX: 5
-  spawnRangeZ: 5
-  fixedYPosition: 5
+  spawnDistance: 20
   playerTransform: {fileID: 5679936445047314708}
 --- !u!114 &-5411513864184933216
 MonoBehaviour:

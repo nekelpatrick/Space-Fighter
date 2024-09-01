@@ -8,12 +8,10 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public float initialSpawnRate = 2.0f;
-    public float spawnRateDecrease = 0.1f; // Decrease in spawn rate over time to increase difficulty
-    public float minSpawnRate = 0.5f;      // Minimum spawn rate for maximum difficulty
-    public float spawnRangeX = 5.0f;
-    public float spawnRangeZ = 5.0f;
-    public float fixedYPosition = 5.0f;
+    public float initialSpawnRate = 3.0f;  // Adjusted for less frequent spawning
+    public float spawnRateDecrease = 0.05f; // Adjusted to reduce the rate of spawn frequency increase
+    public float minSpawnRate = 1.0f;       // Minimum spawn rate for maximum difficulty
+    public float spawnDistance = 20.0f;     // Increased distance for enemy spawning
     public Transform playerTransform;
 
     private float nextSpawn = 0.0f;
@@ -39,10 +37,13 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        float randomX = Random.Range(-spawnRangeX, spawnRangeX) + playerTransform.position.x;
-        float randomZ = Random.Range(-spawnRangeZ, spawnRangeZ) + playerTransform.position.z;
+        // Randomly spawn enemies at a greater distance from the player
+        float randomAngle = Random.Range(0, 2 * Mathf.PI);
+        float randomDistance = Random.Range(spawnDistance, spawnDistance + 10.0f); // Add variance to spawn distance
+        float randomX = playerTransform.position.x + Mathf.Cos(randomAngle) * randomDistance;
+        float randomZ = playerTransform.position.z + Mathf.Sin(randomAngle) * randomDistance;
 
-        Vector3 spawnPosition = new Vector3(randomX, fixedYPosition, randomZ);
+        Vector3 spawnPosition = new Vector3(randomX, playerTransform.position.y, randomZ);
 
         GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
         activeEnemies.Add(enemy.transform);
