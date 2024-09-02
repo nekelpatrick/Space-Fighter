@@ -26,9 +26,19 @@ public class Bullet : MonoBehaviour
             Health enemyHealth = other.GetComponent<Health>();
             if (enemyHealth != null)
             {
+                Debug.Log($"{other.name} detected by bullet. Applying {damage} damage.");
                 enemyHealth.TakeDamage(damage);
+            }
+            else
+            {
+                Debug.LogWarning($"{other.name} does not have a Health component.");
             }
             Destroy(gameObject);
         }
+        else
+        {
+            Debug.Log($"{other.name} was hit but is not an enemy.");
+        }
     }
+
 }

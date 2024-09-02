@@ -17,6 +17,11 @@ public class AutoShoot : MonoBehaviour
     private Transform nearestEnemy;
     private HashSet<Transform> enemies = new HashSet<Transform>(); // Tracks active enemies
 
+    void Start()
+    {
+        Debug.Log("AutoShoot script started.");
+    }
+
     void Update()
     {
         nearestEnemy = FindNearestEnemy();
@@ -29,6 +34,10 @@ public class AutoShoot : MonoBehaviour
                 nextFire = Time.time + fireRate;
                 Shoot();
             }
+        }
+        else
+        {
+            Debug.Log("No enemies detected.");
         }
     }
 
@@ -74,15 +83,33 @@ public class AutoShoot : MonoBehaviour
 
         foreach (Transform enemy in enemies)
         {
-            if (enemy == null) continue; // Skip destroyed enemies
+            if (enemy == null)
+            {
+                Debug.LogWarning("Found a null reference in the enemies set.");
+                continue; // Skip destroyed enemies
+            }
 
             float distanceSqr = (enemy.position - transform.position).sqrMagnitude;
+            float distance = Mathf.Sqrt(distanceSqr);
+            Debug.Log($"Checking enemy: {enemy.name}, Distance: {distance}");
+
             if (distanceSqr < closestDistanceSqr)
             {
                 closestDistanceSqr = distanceSqr;
                 closestEnemy = enemy;
             }
         }
+
+        if (closestEnemy != null)
+        {
+            float closestDistance = Mathf.Sqrt(closestDistanceSqr);
+            Debug.Log($"Nearest enemy found: {closestEnemy.name} at distance {closestDistance}.");
+        }
+        else
+        {
+            Debug.Log("No enemies found within range.");
+        }
+
         return closestEnemy;
     }
 
@@ -92,8 +119,17 @@ public class AutoShoot : MonoBehaviour
     /// <param name="enemy">The enemy to track.</param>
     public void AddEnemy(Transform enemy)
     {
-        enemies.Add(enemy);
+        if (enemy != null)
+        {
+            enemies.Add(enemy);
+            Debug.Log($"Enemy added to tracking: {enemy.name}. Total enemies tracked: {enemies.Count}");
+        }
+        else
+        {
+            Debug.LogError("Attempted to add a null enemy to tracking.");
+        }
     }
+
 
     /// <summary>
     /// Removes an enemy from the tracking set.
@@ -101,6 +137,14 @@ public class AutoShoot : MonoBehaviour
     /// <param name="enemy">The enemy to stop tracking.</param>
     public void RemoveEnemy(Transform enemy)
     {
-        enemies.Remove(enemy);
+        if (enemies.Contains(enemy))
+        {
+            enemies.Remove(enemy);
+            Debug.Log($"Enemy removed from tracking: {enemy.name}");
+        }
+        else
+        {
+            Debug.LogWarning("Attempted to remove an enemy that wasn't being tracked.");
+        }
     }
 }

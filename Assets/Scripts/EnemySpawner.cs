@@ -8,19 +8,35 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public float initialSpawnRate = 3.0f;  // Adjusted for less frequent spawning
-    public float spawnRateDecrease = 0.05f; // Adjusted to reduce the rate of spawn frequency increase
-    public float minSpawnRate = 1.0f;       // Minimum spawn rate for maximum difficulty
-    public float spawnDistance = 20.0f;     // Increased distance for enemy spawning
+    public float initialSpawnRate = 3.0f;
+    public float spawnRateDecrease = 0.05f;
+    public float minSpawnRate = 1.0f;
+    public float spawnDistance = 20.0f;
     public Transform playerTransform;
 
     private float nextSpawn = 0.0f;
     private float currentSpawnRate;
     private HashSet<Transform> activeEnemies = new HashSet<Transform>();
 
+    private AutoShoot autoShoot;
+
     void Start()
     {
         currentSpawnRate = initialSpawnRate;
+
+        // Find the AutoShoot component on the player
+        if (playerTransform != null)
+        {
+            autoShoot = playerTransform.GetComponent<AutoShoot>();
+            if (autoShoot == null)
+            {
+                Debug.LogError("AutoShoot script not found on the player!");
+            }
+        }
+        else
+        {
+            Debug.LogError("Player Transform not assigned to EnemySpawner!");
+        }
     }
 
     void Update()
@@ -37,9 +53,8 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        // Randomly spawn enemies at a greater distance from the player
         float randomAngle = Random.Range(0, 2 * Mathf.PI);
-        float randomDistance = Random.Range(spawnDistance, spawnDistance + 10.0f); // Add variance to spawn distance
+        float randomDistance = Random.Range(spawnDistance, spawnDistance + 10.0f);
         float randomX = playerTransform.position.x + Mathf.Cos(randomAngle) * randomDistance;
         float randomZ = playerTransform.position.z + Mathf.Sin(randomAngle) * randomDistance;
 
@@ -48,12 +63,15 @@ public class EnemySpawner : MonoBehaviour
         GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
         activeEnemies.Add(enemy.transform);
 
-        // Notify AutoShoot of the new enemy
-        playerTransform.GetComponent<AutoShoot>().AddEnemy(enemy.transform);
+        if (autoShoot != null)
+        {
+            autoShoot.AddEnemy(enemy.transform);
+            Debug.Log($"Enemy spawned at position: {spawnPosition}. Added to AutoShoot.");
+        }
     }
 
     /// <summary>
-    /// Removes an enemy from tracking when destroyed.
+    /// Removes an enemy from the tracking set and the active enemies set.
     /// </summary>
     /// <param name="enemy">The enemy to remove.</param>
     public void RemoveEnemy(Transform enemy)
@@ -61,7 +79,12 @@ public class EnemySpawner : MonoBehaviour
         if (activeEnemies.Contains(enemy))
         {
             activeEnemies.Remove(enemy);
-            playerTransform.GetComponent<AutoShoot>().RemoveEnemy(enemy);
+            Debug.Log($"Enemy removed from active enemies: {enemy.name}");
+        }
+
+        if (autoShoot != null)
+        {
+            autoShoot.RemoveEnemy(enemy);
         }
     }
 }

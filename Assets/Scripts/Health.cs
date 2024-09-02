@@ -13,30 +13,29 @@ public class Health : MonoBehaviour
  {
   currentHealth = maxHealth;
   enemySpawner = FindObjectOfType<EnemySpawner>();
+  Debug.Log($"{gameObject.name} spawned with {currentHealth} health.");
  }
 
- /// <summary>
- /// Reduces health by a specified amount.
- /// </summary>
- /// <param name="damage">The amount of damage to apply.</param>
  public void TakeDamage(int damage)
  {
   currentHealth -= damage;
+  Debug.Log($"{gameObject.name} took {damage} damage, remaining health: {currentHealth}");
+
   if (currentHealth <= 0)
   {
    Die();
   }
  }
 
- /// <summary>
- /// Handles the entity's death, ensuring it is properly removed from all tracking systems.
- /// </summary>
  private void Die()
  {
+  Debug.Log($"{gameObject.name} has died.");
+
   if (enemySpawner != null)
   {
    enemySpawner.RemoveEnemy(transform);
   }
+
   Destroy(gameObject);
  }
 }
