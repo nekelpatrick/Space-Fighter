@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: -7784175400972663832}
   - component: {fileID: 365514437301714264}
   - component: {fileID: -5411513864184933216}
-  - component: {fileID: 8496587971857223840}
-  - component: {fileID: 6151143827613404861}
-  - component: {fileID: 8024409815430868562}
+  - component: {fileID: 3846607704735705862}
+  - component: {fileID: 596415626942755431}
   m_Layer: 0
   m_Name: SpaceShipObject
   m_TagString: Player
@@ -97,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   healthBar: {fileID: 0}
---- !u!114 &8496587971857223840
+--- !u!114 &3846607704735705862
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,8 +108,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dbbef5e09223884abf5cb42dc9f93d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equippedWeapon: {fileID: 0}
---- !u!114 &6151143827613404861
+  equippedWeapons:
+  - {fileID: 8638875602800582592}
+  - {fileID: 981815036625347378}
+--- !u!114 &596415626942755431
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,23 +124,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRate: 0.5
---- !u!114 &8024409815430868562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 221767762761860686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d7c75d779fc2e14f811f4edc0226266, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: 0
-  damage: 1
-  tier: 1
-  weaponClass: Basic
-  firePoint: {fileID: 0}
 --- !u!1 &4793007428384758194
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,6 +136,7 @@ GameObject:
   - component: {fileID: 6418489721887031292}
   - component: {fileID: 2935123570033624187}
   - component: {fileID: 4799221263918676095}
+  - component: {fileID: 981815036625347378}
   m_Layer: 0
   m_Name: LaserWeapon (2)
   m_TagString: Untagged
@@ -247,6 +232,23 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &981815036625347378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793007428384758194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d7c75d779fc2e14f811f4edc0226266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  damage: 1
+  tier: 1
+  weaponClass: Basic
+  firePoint: {fileID: 0}
 --- !u!1 &7114992062419066015
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,6 +261,7 @@ GameObject:
   - component: {fileID: 1867158016750849876}
   - component: {fileID: 5570352420409210840}
   - component: {fileID: 4491122263145549014}
+  - component: {fileID: 8638875602800582592}
   m_Layer: 0
   m_Name: LaserWeapon
   m_TagString: Untagged
@@ -354,6 +357,23 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &8638875602800582592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7114992062419066015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d7c75d779fc2e14f811f4edc0226266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  damage: 1
+  tier: 1
+  weaponClass: Basic
+  firePoint: {fileID: 0}
 --- !u!1 &7537328942942653745
 GameObject:
   m_ObjectHideFlags: 0

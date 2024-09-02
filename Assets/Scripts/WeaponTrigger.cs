@@ -1,21 +1,25 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Handles the interaction between the shooting trigger and the weapon.
+/// Handles the interaction between the shooting trigger and the weapons.
 /// </summary>
 public class WeaponTrigger : MonoBehaviour
 {
- public Weapon equippedWeapon;
+ public List<Weapon> equippedWeapons = new List<Weapon>(); // List to hold multiple weapons
 
- public void TriggerWeapon()
+ public void TriggerWeapons()
  {
-  if (equippedWeapon != null)
+  foreach (Weapon weapon in equippedWeapons)
   {
-   equippedWeapon.Fire();
-  }
-  else
-  {
-   Debug.LogWarning("No weapon equipped.");
+   if (weapon != null)
+   {
+    weapon.Fire();
+   }
+   else
+   {
+    Debug.LogWarning("A weapon is not properly equipped.");
+   }
   }
  }
 }
