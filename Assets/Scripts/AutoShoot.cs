@@ -6,9 +6,9 @@ using UnityEngine;
 /// </summary>
 public class AutoShoot : MonoBehaviour
 {
-    public float detectionRange = 15.0f;
-    public float rotationSpeed = 5.0f;
-    public float firingAngleThreshold = 5.0f;
+    public float detectionRange = 60.0f;
+    public float rotationSpeed = 15f;
+    public float firingAngleThreshold = 15f;
 
     private Transform nearestEnemy;
     private HashSet<Transform> enemies = new HashSet<Transform>(); // Tracks active enemies

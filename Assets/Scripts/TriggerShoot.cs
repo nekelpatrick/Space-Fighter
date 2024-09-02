@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class TriggerShoot : MonoBehaviour
 {
- public float fireRate = 0.5f;
+ public float fireRate = 0.3f;
  private float nextFire = 0.0f;
  private WeaponTrigger weaponTrigger;
 
