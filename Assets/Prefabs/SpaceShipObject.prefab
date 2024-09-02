@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: -7784175400972663832}
   - component: {fileID: 365514437301714264}
   - component: {fileID: -5411513864184933216}
+  - component: {fileID: 8496587971857223840}
+  - component: {fileID: 6151143827613404861}
+  - component: {fileID: 8024409815430868562}
   m_Layer: 0
   m_Name: SpaceShipObject
   m_TagString: Player
@@ -64,10 +67,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7250942d71e8d944bb4a36901a63c7fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 8190577876381394406, guid: 040409a5e465fb047831003254a97315,
-    type: 3}
-  laserOutArea: {fileID: 1917160485853566369}
-  fireRate: 0.5
   detectionRange: 15
   rotationSpeed: 3
   firingAngleThreshold: 3
@@ -98,6 +97,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   healthBar: {fileID: 0}
+--- !u!114 &8496587971857223840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221767762761860686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dbbef5e09223884abf5cb42dc9f93d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equippedWeapon: {fileID: 0}
+--- !u!114 &6151143827613404861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221767762761860686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a93c0ac53a287248849032d63963e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRate: 0.5
+--- !u!114 &8024409815430868562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221767762761860686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d7c75d779fc2e14f811f4edc0226266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  damage: 1
+  tier: 1
+  weaponClass: Basic
+  firePoint: {fileID: 0}
 --- !u!1 &4793007428384758194
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,37 +247,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!1 &5002430838584926073
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1917160485853566369}
-  m_Layer: 0
-  m_Name: LaserOutArea
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1917160485853566369
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5002430838584926073}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.04, z: 0}
-  m_LocalScale: {x: 7.1911526, y: 6.5772295, z: 2.633657}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8785513248996115988}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7114992062419066015
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,8 +278,7 @@ Transform:
   m_LocalPosition: {x: -0.5, y: 0, z: 2.734}
   m_LocalScale: {x: 0.1390598, y: 0.3797, z: 0.15203965}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1917160485853566369}
+  m_Children: []
   m_Father: {fileID: 5679936445047314708}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &1867158016750849876
