@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1776817569817722684
+--- !u!1 &8304822639487128888
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7576185628640033830}
-  - component: {fileID: 7086692250653885991}
+  - component: {fileID: 4650291280619256688}
+  - component: {fileID: 5011034383089075120}
   m_Layer: 0
-  m_Name: EnemySpawner
-  m_TagString: Enemy
+  m_Name: HordeManager
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7576185628640033830
+--- !u!4 &4650291280619256688
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1776817569817722684}
+  m_GameObject: {fileID: 8304822639487128888}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 5}
+  m_LocalPosition: {x: 4.5895114, y: 28.596704, z: -9.589899}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7086692250653885991
+--- !u!114 &5011034383089075120
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1776817569817722684}
+  m_GameObject: {fileID: 8304822639487128888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dabd3588a01753d4ba978b7eb17ed89a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e88efcbef469be4f97e878a15b498ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 6853003299114923407, guid: 9f31d7ff2bd8be64d8d02180b79bf2b9,
-    type: 3}
-  initialSpawnRate: 8
-  spawnRateDecrease: 0.05
-  minSpawnRate: 1
-  spawnDistance: 30
-  playerTransform: {fileID: 5417604327655588935, guid: f2318c771549b2c45a798c568b0d7b0d,
-    type: 3}
+  enemies: []
+  cohesionFactor: 1
+  separationDistance: 2
+  alignmentFactor: 1
+  attackSpeedMultiplier: 1.5

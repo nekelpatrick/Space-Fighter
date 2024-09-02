@@ -8,11 +8,13 @@ public class Health : MonoBehaviour
  public int maxHealth = 3;
  private int currentHealth;
  private EnemySpawner enemySpawner;
+ private HordeManager hordeManager;
 
  void Start()
  {
   currentHealth = maxHealth;
   enemySpawner = FindObjectOfType<EnemySpawner>();
+  hordeManager = FindObjectOfType<HordeManager>();
   Debug.Log($"{gameObject.name} spawned with {currentHealth} health.");
  }
 
@@ -34,6 +36,11 @@ public class Health : MonoBehaviour
   if (enemySpawner != null)
   {
    enemySpawner.RemoveEnemy(transform);
+  }
+
+  if (hordeManager != null)
+  {
+   hordeManager.RemoveEnemy(transform);
   }
 
   Destroy(gameObject);

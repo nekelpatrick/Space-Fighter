@@ -23,7 +23,7 @@ public class TriggerShoot : MonoBehaviour
   if (Time.time > nextFire)
   {
    nextFire = Time.time + fireRate;
-   weaponTrigger?.TriggerWeapons(); // Trigger all weapons
+   weaponTrigger?.TriggerWeapons(); // Trigger all weapons if the enemy is within firing range
   }
  }
 }

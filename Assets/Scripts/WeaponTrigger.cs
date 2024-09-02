@@ -7,18 +7,33 @@ using UnityEngine;
 public class WeaponTrigger : MonoBehaviour
 {
  public List<Weapon> equippedWeapons = new List<Weapon>(); // List to hold multiple weapons
+ private AutoShoot autoShoot;
+
+ void Start()
+ {
+  autoShoot = GetComponent<AutoShoot>();
+  if (autoShoot == null)
+  {
+   Debug.LogError("AutoShoot component not found on the GameObject.");
+  }
+ }
 
  public void TriggerWeapons()
  {
-  foreach (Weapon weapon in equippedWeapons)
+  // Check if the nearest enemy is within firing range
+  Transform target = autoShoot?.GetNearestEnemyInRange();
+  if (target != null)
   {
-   if (weapon != null)
+   foreach (Weapon weapon in equippedWeapons)
    {
-    weapon.Fire();
-   }
-   else
-   {
-    Debug.LogWarning("A weapon is not properly equipped.");
+    if (weapon != null)
+    {
+     weapon.Fire();
+    }
+    else
+    {
+     Debug.LogWarning("A weapon is not properly equipped.");
+    }
    }
   }
  }

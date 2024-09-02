@@ -6,7 +6,8 @@ using UnityEngine;
 /// </summary>
 public class AutoShoot : MonoBehaviour
 {
-    public float detectionRange = 60.0f;
+    public float detectionRange = 60.0f; // Range for tracking enemies
+    public float firingRange = 30.0f;    // Range within which the player can shoot at enemies
     public float rotationSpeed = 15f;
     public float firingAngleThreshold = 15f;
 
@@ -48,6 +49,20 @@ public class AutoShoot : MonoBehaviour
         }
 
         return closestEnemy;
+    }
+
+    public Transform GetNearestEnemyInRange()
+    {
+        if (nearestEnemy == null)
+            return null;
+
+        float distanceSqr = (nearestEnemy.position - transform.position).sqrMagnitude;
+        if (distanceSqr <= firingRange * firingRange)
+        {
+            return nearestEnemy;
+        }
+
+        return null;
     }
 
     public void AddEnemy(Transform enemy)
