@@ -6,11 +6,12 @@ using UnityEngine;
 /// </summary>
 public class HordeManager : MonoBehaviour
 {
- public List<Transform> enemies = new List<Transform>(); // List of enemies in the horde
- public float cohesionFactor = 1.0f; // How strongly the enemies group together
- public float separationDistance = 2.0f; // Minimum distance between enemies
- public float alignmentFactor = 1.0f; // How strongly the enemies align their direction with the group
- public float attackSpeedMultiplier = 1.5f; // Speed multiplier when the horde attacks
+ public List<Transform> enemies = new List<Transform>();
+ public float cohesionFactor = 1.0f;
+ public float separationDistance = 2.0f;
+ public float alignmentFactor = 1.0f;
+ public float baseSpeed = 5.0f;
+ public float speedBoostPerEnemy = 0.1f; // Speed boost per additional enemy in the horde
 
  private Transform player;
 
@@ -26,7 +27,8 @@ public class HordeManager : MonoBehaviour
    if (enemy != null)
    {
     Vector3 moveDirection = CalculateHordeMovement(enemy);
-    enemy.GetComponent<EnemyBehavior>().MoveAsHorde(moveDirection);
+    float speed = baseSpeed + (speedBoostPerEnemy * enemies.Count);
+    enemy.GetComponent<EnemyBehavior>().MoveAsHorde(moveDirection * speed);
    }
   }
  }
@@ -38,7 +40,6 @@ public class HordeManager : MonoBehaviour
   Vector3 alignment = CalculateAlignment(enemy);
   Vector3 targetDirection = (player.position - enemy.position).normalized;
 
-  // Combine all forces for the final movement direction
   return (cohesion * cohesionFactor + separation + alignment * alignmentFactor + targetDirection).normalized;
  }
 
@@ -115,4 +116,9 @@ public class HordeManager : MonoBehaviour
  {
   enemies.Remove(enemy);
  }
+ public float GetSpeedMultiplier()
+ {
+  return 1 + (enemies.Count * 0.05f); // Example: Increase speed by 5% per enemy in the horde
+ }
+
 }

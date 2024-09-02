@@ -40,22 +40,22 @@ public class EnemyBehavior : MonoBehaviour
 
 public class FastEnemyBehavior : EnemyBehavior
 {
- public float speed = 18.0f;
+ public float baseSpeed = 18.0f;
 
  public override void PerformAction()
  {
-  // Fast enemy behavior enhanced with horde movement
+  float speed = baseSpeed * hordeManager.GetSpeedMultiplier();
   MoveAsHorde((player.position - transform.position).normalized * speed);
  }
 }
 
 public class HeavyEnemyBehavior : EnemyBehavior
 {
- public float speed = 10.0f;
+ public float baseSpeed = 10.0f;
 
  public override void PerformAction()
  {
-  // Heavy enemy behavior enhanced with horde movement
+  float speed = baseSpeed * hordeManager.GetSpeedMultiplier();
   MoveAsHorde((player.position - transform.position).normalized * speed);
  }
 }
