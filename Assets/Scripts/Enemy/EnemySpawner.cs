@@ -8,10 +8,10 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public float initialSpawnRate = 3.0f;
+    public float initialSpawnRate = 2.0f;
     public float spawnRateDecrease = 0.07f;
     public float minSpawnRate = 1.0f;
-    public float spawnDistance = 30.0f;
+    public float spawnDistance = 60.0f;
     public Transform playerTransform;
 
     private float nextSpawn = 0.0f;

@@ -40,7 +40,7 @@ public class EnemyBehavior : MonoBehaviour
 
 public class FastEnemyBehavior : EnemyBehavior
 {
- public float speed = 10.0f;
+ public float speed = 18.0f;
 
  public override void PerformAction()
  {
@@ -51,7 +51,7 @@ public class FastEnemyBehavior : EnemyBehavior
 
 public class HeavyEnemyBehavior : EnemyBehavior
 {
- public float speed = 3.0f;
+ public float speed = 10.0f;
 
  public override void PerformAction()
  {
