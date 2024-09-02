@@ -59,7 +59,7 @@ public class Weapon : MonoBehaviour
  {
   // Instantiate a laser bullet at the firePoint's position
   GameObject laserBullet = Instantiate(Resources.Load<GameObject>("Prefabs/LaserBullet"), firePoint.position, firePoint.rotation);
-  Bullet bullet = laserBullet.GetComponent<Bullet>();
+  LaserShotBehavior bullet = laserBullet.GetComponent<LaserShotBehavior>();
   if (bullet != null)
   {
    bullet.damage = damage;
@@ -70,7 +70,7 @@ public class Weapon : MonoBehaviour
  {
   // Instantiate a missile at the firePoint's position
   GameObject missile = Instantiate(Resources.Load<GameObject>("Prefabs/Missile"), firePoint.position, firePoint.rotation);
-  Bullet bullet = missile.GetComponent<Bullet>();
+  LaserShotBehavior bullet = missile.GetComponent<LaserShotBehavior>();
   if (bullet != null)
   {
    bullet.damage = damage;
